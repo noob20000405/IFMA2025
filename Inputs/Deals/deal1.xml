@@ -1,0 +1,1 @@
+<Deal><type>Call</type><name>Deal 1</name><position>Long</position><notional>100</notional><currency>EUR</currency><underlying>CAC40</underlying><rate_const>0.0315</rate_const><vol_const>0.2</vol_const><strike>8000</strike><start_date>03/17/2024</start_date><maturity>12/20/2024</maturity></Deal>

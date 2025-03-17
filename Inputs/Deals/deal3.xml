@@ -1,0 +1,1 @@
+<Deal><type>Put</type><name>Deal 3</name><position>Short</position><notional>100</notional><currency>EUR</currency><underlying>TTEF</underlying><rate_const>0.0315</rate_const><vol_const>0.15</vol_const><strike>61</strike><start_date>03/17/2024</start_date><maturity>10/30/2024</maturity></Deal>
