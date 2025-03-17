@@ -3,6 +3,7 @@
 """
 import abc
 from dataclasses import dataclass
+from datetime import datetime
 
 
 # Base abstract class representing a generic financial deal
@@ -27,8 +28,16 @@ class Call(Deal):
     but not the obligation, to buy an underlying asset at a specified
     price within a specified time period.
     """
-    # TODO: Implement attributes and methods specific to a Call option
-    pass
+    deal_id: str
+    position: str
+    notional: float
+    currency: str
+    underlying: str
+    rate_const: float
+    vol_const: float
+    strike: float
+    start_date: datetime
+    maturity: datetime
 
 
 @dataclass
@@ -38,8 +47,16 @@ class Put(Deal):
     but not the obligation, to sell an underlying asset at a specified
     price within a specified time period.
     """
-    # TODO: Implement attributes and methods specific to a Put option
-    pass
+    deal_id: str
+    position: str
+    notional: float
+    currency: str
+    underlying: str
+    rate_const: float
+    vol_const: float
+    strike: float
+    start_date: datetime
+    maturity: datetime
 
 
 @dataclass
@@ -49,8 +66,14 @@ class Future(Deal):
     purchase, or the seller to sell, an underlying asset at a
     predetermined price and date in the future.
     """
-    # TODO: Implement attributes and methods specific to a Futures contract
-    pass
-
+    deal_id: str
+    position: str
+    notional: float
+    currency: str
+    underlying: str
+    rate_const: float
+    # vol_const: float
+    start_date: datetime
+    maturity: datetime
 
     

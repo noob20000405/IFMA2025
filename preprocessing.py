@@ -54,16 +54,45 @@ class DealPreprocessing:
         return datetime.strptime(root.find(name).text, '%m/%d/%Y')
 
     def build_call(self) -> Call:
-        # TODO: Implement this method
-        pass
+        return Call(
+            deal_id=self._get_text(self.root, "name"),
+            position=self._get_text(self.root, "position"),
+            notional=self._get_value(self.root, "notional"),
+            currency=self._get_text(self.root, "currency"),
+            underlying=self._get_text(self.root, "underlying"),
+            rate_const=self._get_value(self.root, "rate_const"),
+            vol_const=self._get_value(self.root, "vol_const"), 
+            strike=self._get_value(self.root, "strike"), 
+            start_date=self._get_date(self.root, "start_date"),
+            maturity=self._get_date(self.root, "maturity")
+        )
 
     def build_put(self) -> Put:
-        # TODO: Implement this method
-        pass
+        return Put(
+            deal_id=self._get_text(self.root, "name"),
+            position=self._get_text(self.root, "position"),
+            notional=self._get_value(self.root, "notional"),
+            currency=self._get_text(self.root, "currency"),
+            underlying=self._get_text(self.root, "underlying"),
+            rate_const=self._get_value(self.root, "rate_const"),
+            vol_const=self._get_value(self.root, "vol_const"), 
+            strike=self._get_value(self.root, "strike"), 
+            start_date=self._get_date(self.root, "start_date"),
+            maturity=self._get_date(self.root, "maturity")
+        )
 
     def build_future(self) -> Future:
-        # TODO: Implement this method
-        pass
+        return Future(
+            deal_id=self._get_text(self.root, "name"),
+            position=self._get_text(self.root, "position"),
+            notional=self._get_value(self.root, "notional"),
+            currency=self._get_text(self.root, "currency"),
+            underlying=self._get_text(self.root, "underlying"),
+            rate_const=self._get_value(self.root, "rate_const"), 
+            # vol_const=self._get_value(self.root, "vol_const"), 
+            start_date=self._get_date(self.root, "start_date"),
+            maturity=self._get_date(self.root, "maturity")
+        )
 
 
     def build(self):
@@ -138,8 +167,13 @@ class MarketDataPreprocessing:
         ---------
         - Equity : objet Equity correspondant aux données.
         """
-        # TODO: Implémenter la logique de création de l'Equity
-        pass
+        # Vérification que les colonnes attendues sont présentes
+        if "Date" not in self.market_state.columns or "Price" not in self.market_state.columns:
+            raise KeyError("CSV Col Missing...")
+
+        df_filtered = self.market_state.copy()
+        df_filtered["Date"] = pd.to_datetime(df_filtered["Date"], format="%m/%d/%Y")
+        return Equity(name=name, data=df_filtered)
 
     def build_rate(self, name: str) -> Rate:
         """
@@ -154,8 +188,12 @@ class MarketDataPreprocessing:
         ---------
         - Rate : objet Rate correspondant aux données.
         """
-        # TODO: Implémenter la logique de création du Rate
-        pass
+        if "Date" not in self.market_state.columns or "Price" not in self.market_state.columns:
+            raise KeyError("CSV Col Missing...")
+
+        df_filtered = self.market_state.copy()
+        df_filtered["Date"] = pd.to_datetime(df_filtered["Date"], format="%m/%d/%Y")
+        return Rate(name=name, data=df_filtered)
 
     def build(self, data_name: str):
         """
